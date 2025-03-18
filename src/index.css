@@ -6,6 +6,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .group\/card {
+    @apply group;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -77,11 +83,11 @@
   }
 
   .project-card {
-    @apply relative overflow-hidden rounded-xl transition-all duration-500 group/card;
+    @apply relative overflow-hidden rounded-xl transition-all duration-500 group;
   }
 
   .project-card img {
-    @apply h-full w-full object-cover transition-all duration-500 group-hover/card:scale-105;
+    @apply h-full w-full object-cover transition-all duration-500 group-hover:scale-105;
   }
 
   .section {
