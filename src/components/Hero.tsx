@@ -58,7 +58,7 @@ const Hero: React.FC = () => {
         <div className="max-w-3xl mx-auto">
           <div className="overflow-hidden">
             <p ref={subtitleRef} className="section-subheading opacity-0" style={{ animationDelay: '0.2s' }}>
-              Graphic Design Agency
+              Agência de Design Gráfico
             </p>
           </div>
           
@@ -67,7 +67,7 @@ const Hero: React.FC = () => {
               ref={titleRef}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold tracking-tight text-accent2 opacity-0"
             >
-              Crafting Your<br />Visual Story
+              Criando Sua<br />História Visual
             </h1>
           </div>
           
@@ -77,8 +77,8 @@ const Hero: React.FC = () => {
               className="text-lg sm:text-xl text-gray-600 max-w-xl mx-auto opacity-0"
               style={{ animationDelay: '0.4s' }}
             >
-              We transform ideas into compelling visual narratives 
-              that captivate and resonate with your audience.
+              Transformamos ideias em narrativas visuais cativantes 
+              que envolvem e conectam com seu público.
             </p>
           </div>
           
@@ -91,7 +91,7 @@ const Hero: React.FC = () => {
               href="#contact"
               className="btn btn-primary px-8 py-3 text-base sm:text-lg"
             >
-              Let's Create Together
+              Vamos Criar Juntos
             </a>
           </div>
         </div>
@@ -101,9 +101,9 @@ const Hero: React.FC = () => {
         href="#about" 
         onClick={handleScrollToAbout}
         className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center justify-center text-accent2 hover:text-accent1 transition-colors duration-300"
-        aria-label="Scroll to About section"
+        aria-label="Rolar para a seção Sobre"
       >
-        <span className="text-sm mb-2">Scroll</span>
+        <span className="text-sm mb-2">Rolar</span>
         <ChevronDown className="animate-float" size={24} />
       </a>
     </section>

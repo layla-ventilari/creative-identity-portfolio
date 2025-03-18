@@ -38,18 +38,18 @@ const About: React.FC = () => {
   const features = [
     {
       icon: <Lightbulb size={24} />,
-      title: "Creative Strategy",
-      description: "We combine strategic thinking with creative execution to deliver results that exceed expectations."
+      title: "Estratégia Criativa",
+      description: "Combinamos pensamento estratégico com execução criativa para entregar resultados que superam expectativas."
     },
     {
       icon: <Palette size={24} />,
-      title: "Design Excellence",
-      description: "Our commitment to design excellence ensures that every pixel serves a purpose in your visual story."
+      title: "Excelência em Design",
+      description: "Nosso compromisso com a excelência em design garante que cada pixel tenha um propósito na sua história visual."
     },
     {
       icon: <Users size={24} />,
-      title: "Client Partnership",
-      description: "We believe in collaborative partnerships, working closely with you throughout the design journey."
+      title: "Parceria com Clientes",
+      description: "Acreditamos em parcerias colaborativas, trabalhando próximo de você durante toda a jornada de design."
     }
   ];
 
@@ -59,8 +59,8 @@ const About: React.FC = () => {
         <div ref={sectionRef} className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
             <div className="opacity-0" ref={headingRef}>
-              <p className="section-subheading">About Us</p>
-              <h2 className="section-heading">Who We Are</h2>
+              <p className="section-subheading">Sobre Nós</p>
+              <h2 className="section-heading">Quem Somos</h2>
             </div>
             
             <div 
@@ -69,14 +69,14 @@ const About: React.FC = () => {
               style={{ animationDelay: '0.2s' }}
             >
               <p className="text-gray-600 mb-6">
-                We are a creative design studio dedicated to crafting meaningful visual experiences. 
-                Our approach balances creative innovation with practical functionality, ensuring 
-                that each design not only looks stunning but also delivers results.
+                Somos um estúdio de design criativo dedicado a criar experiências visuais significativas. 
+                Nossa abordagem equilibra inovação criativa com funcionalidade prática, garantindo 
+                que cada design não apenas pareça deslumbrante, mas também entregue resultados.
               </p>
               <p className="text-gray-600">
-                With years of industry experience, we understand what makes design work. 
-                We pride ourselves on our ability to listen, collaborate, and transform ideas 
-                into visual stories that resonate with audiences and achieve business objectives.
+                Com anos de experiência no setor, entendemos o que faz o design funcionar. 
+                Nos orgulhamos da nossa capacidade de ouvir, colaborar e transformar ideias 
+                em histórias visuais que ressoam com o público e atingem objetivos de negócio.
               </p>
             </div>
           </div>

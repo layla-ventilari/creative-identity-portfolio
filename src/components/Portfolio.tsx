@@ -22,45 +22,45 @@ const Portfolio: React.FC = () => {
   const projects: Project[] = [
     {
       id: 1,
-      title: "Brand Identity",
+      title: "Identidade de Marca",
       category: "branding",
       image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80",
-      description: "Complete brand identity system for a modern tech startup, including logo design, typography, color palette, and brand guidelines."
+      description: "Sistema completo de identidade de marca para uma startup de tecnologia moderna, incluindo design de logo, tipografia, paleta de cores e diretrizes de marca."
     },
     {
       id: 2,
-      title: "Website Redesign",
+      title: "Redesign de Website",
       category: "web",
       image: "https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80",
-      description: "UI/UX design for an e-commerce platform, focused on improving user experience and conversion rates through intuitive navigation and clean visual design."
+      description: "Design de UI/UX para uma plataforma de e-commerce, focado em melhorar a experiência do usuário e as taxas de conversão através de navegação intuitiva e design visual limpo."
     },
     {
       id: 3,
-      title: "Print Campaign",
+      title: "Campanha Impressa",
       category: "print",
       image: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80",
-      description: "Series of print materials for a seasonal marketing campaign, including posters, brochures, and direct mail pieces that drove significant customer engagement."
+      description: "Série de materiais impressos para uma campanha de marketing sazonal, incluindo pôsteres, brochuras e peças de mala direta que geraram engajamento significativo com o cliente."
     },
     {
       id: 4,
-      title: "Product Packaging",
+      title: "Embalagem de Produto",
       category: "packaging",
       image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80",
-      description: "Luxury packaging design for a premium product line, with attention to sustainable materials and tactile experiences that enhance brand perception."
+      description: "Design de embalagem de luxo para uma linha de produtos premium, com atenção a materiais sustentáveis e experiências táteis que melhoram a percepção da marca."
     },
     {
       id: 5,
-      title: "Social Media Campaign",
+      title: "Campanha de Mídia Social",
       category: "digital",
       image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80",
-      description: "Comprehensive social media campaign with cohesive visual language across multiple platforms, resulting in increased engagement and brand awareness."
+      description: "Campanha abrangente de mídia social com linguagem visual coesa em várias plataformas, resultando em aumento de engajamento e reconhecimento da marca."
     },
     {
       id: 6,
-      title: "Annual Report",
+      title: "Relatório Anual",
       category: "print",
       image: "https://images.unsplash.com/photo-1572044162444-ad60f128bdea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80",
-      description: "Award-winning annual report design that transformed complex financial data into an engaging visual narrative for stakeholders and investors."
+      description: "Design premiado de relatório anual que transformou dados financeiros complexos em uma narrativa visual envolvente para stakeholders e investidores."
     }
   ];
 
@@ -69,6 +69,15 @@ const Portfolio: React.FC = () => {
     : projects.filter(project => project.category === category);
 
   const categories = ['all', ...new Set(projects.map(project => project.category))];
+
+  const categoryTranslations: Record<string, string> = {
+    'all': 'Todos',
+    'branding': 'Branding',
+    'web': 'Web',
+    'print': 'Impressão',
+    'packaging': 'Embalagem',
+    'digital': 'Digital'
+  };
 
   useEffect(() => {
     const observerOptions = {
@@ -99,11 +108,11 @@ const Portfolio: React.FC = () => {
       <div className="container mx-auto">
         <div ref={sectionRef}>
           <div className="text-center max-w-3xl mx-auto mb-12 opacity-0" ref={headingRef}>
-            <p className="section-subheading">Our Work</p>
-            <h2 className="section-heading mx-auto">Selected Projects</h2>
+            <p className="section-subheading">Nosso Trabalho</p>
+            <h2 className="section-heading mx-auto">Projetos Selecionados</h2>
             <p className="text-gray-600 mt-4">
-              Explore our portfolio of work across various disciplines and industries.
-              Each project represents our commitment to thoughtful design and effective visual communication.
+              Explore nosso portfólio de trabalhos em várias disciplinas e indústrias.
+              Cada projeto representa nosso compromisso com o design reflexivo e comunicação visual eficaz.
             </p>
           </div>
           
@@ -120,7 +129,7 @@ const Portfolio: React.FC = () => {
                       : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                   )}
                 >
-                  {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                  {categoryTranslations[cat] || cat.charAt(0).toUpperCase() + cat.slice(1)}
                 </button>
               ))}
             </div>
@@ -147,7 +156,9 @@ const Portfolio: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                   <div className="text-white">
                     <h3 className="text-xl font-bold">{project.title}</h3>
-                    <p className="text-white/80 text-sm mt-1">{project.category.charAt(0).toUpperCase() + project.category.slice(1)}</p>
+                    <p className="text-white/80 text-sm mt-1">
+                      {categoryTranslations[project.category] || project.category.charAt(0).toUpperCase() + project.category.slice(1)}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -180,7 +191,7 @@ const Portfolio: React.FC = () => {
               </div>
               <div className="p-8">
                 <p className="text-accent1 text-sm font-medium uppercase tracking-wider mb-2">
-                  {selectedProject.category.charAt(0).toUpperCase() + selectedProject.category.slice(1)}
+                  {categoryTranslations[selectedProject.category] || selectedProject.category.charAt(0).toUpperCase() + selectedProject.category.slice(1)}
                 </p>
                 <h3 className="text-2xl font-bold mb-4">{selectedProject.title}</h3>
                 <p className="text-gray-600 mb-6">
@@ -192,7 +203,7 @@ const Portfolio: React.FC = () => {
                     className="btn btn-primary px-6 py-2"
                     onClick={() => setSelectedProject(null)}
                   >
-                    Inquire About Similar Projects
+                    Consulte Sobre Projetos Similares
                   </a>
                 </div>
               </div>

@@ -16,7 +16,7 @@ const Contact: React.FC = () => {
   
   const sectionRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
-  const formRef = useRef<HTMLDivElement>(null); // Changed from HTMLFormElement to HTMLDivElement
+  const formRef = useRef<HTMLDivElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -31,8 +31,8 @@ const Contact: React.FC = () => {
     // Simulate form submission
     setTimeout(() => {
       toast({
-        title: "Message sent!",
-        description: "We'll get back to you as soon as possible.",
+        title: "Mensagem enviada!",
+        description: "Entraremos em contato o mais breve possível.",
       });
       setFormData({
         name: '',
@@ -75,11 +75,11 @@ const Contact: React.FC = () => {
       <div className="container mx-auto">
         <div ref={sectionRef}>
           <div className="text-center max-w-3xl mx-auto mb-16 opacity-0" ref={headingRef}>
-            <p className="section-subheading">Get In Touch</p>
-            <h2 className="section-heading mx-auto">Let's Create Together</h2>
+            <p className="section-subheading">Entre em Contato</p>
+            <h2 className="section-heading mx-auto">Vamos Criar Juntos</h2>
             <p className="text-gray-600 mt-4">
-              Ready to start your next project? Contact us today for a consultation 
-              and discover how we can bring your vision to life.
+              Pronto para iniciar seu próximo projeto? Contate-nos hoje para uma consulta 
+              e descubra como podemos dar vida à sua visão.
             </p>
           </div>
           
@@ -93,7 +93,7 @@ const Contact: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                      Your Name
+                      Seu Nome
                     </label>
                     <input
                       type="text"
@@ -103,12 +103,12 @@ const Contact: React.FC = () => {
                       onChange={handleChange}
                       required
                       className="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent1 focus:border-transparent transition-all duration-200"
-                      placeholder="John Doe"
+                      placeholder="João Silva"
                     />
                   </div>
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                      Your Email
+                      Seu Email
                     </label>
                     <input
                       type="email"
@@ -118,14 +118,14 @@ const Contact: React.FC = () => {
                       onChange={handleChange}
                       required
                       className="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent1 focus:border-transparent transition-all duration-200"
-                      placeholder="john@example.com"
+                      placeholder="joao@exemplo.com"
                     />
                   </div>
                 </div>
                 
                 <div className="mb-6">
                   <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
-                    Subject
+                    Assunto
                   </label>
                   <input
                     type="text"
@@ -135,13 +135,13 @@ const Contact: React.FC = () => {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent1 focus:border-transparent transition-all duration-200"
-                    placeholder="Project Inquiry"
+                    placeholder="Consulta de Projeto"
                   />
                 </div>
                 
                 <div className="mb-6">
                   <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                    Message
+                    Mensagem
                   </label>
                   <textarea
                     id="message"
@@ -151,7 +151,7 @@ const Contact: React.FC = () => {
                     required
                     rows={5}
                     className="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent1 focus:border-transparent transition-all duration-200"
-                    placeholder="Tell us about your project..."
+                    placeholder="Conte-nos sobre seu projeto..."
                   ></textarea>
                 </div>
                 
@@ -163,7 +163,7 @@ const Contact: React.FC = () => {
                     isSubmitting ? "opacity-70 cursor-not-allowed" : ""
                   )}
                 >
-                  {isSubmitting ? "Sending..." : "Send Message"}
+                  {isSubmitting ? "Enviando..." : "Enviar Mensagem"}
                   <Send size={16} className="ml-2" />
                 </button>
               </form>
@@ -175,7 +175,7 @@ const Contact: React.FC = () => {
               style={{ animationDelay: '0.4s' }}
             >
               <div className="glass-card p-8 h-full">
-                <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
+                <h3 className="text-2xl font-bold mb-6">Informações de Contato</h3>
                 
                 <div className="space-y-6">
                   <div className="flex items-start">
@@ -183,9 +183,9 @@ const Contact: React.FC = () => {
                       <Mail size={24} />
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500 mb-1">Email Us</p>
-                      <a href="mailto:hello@studio.com" className="font-medium hover:text-accent1 transition-colors">
-                        hello@studio.com
+                      <p className="text-sm text-gray-500 mb-1">Email</p>
+                      <a href="mailto:ola@studio.com" className="font-medium hover:text-accent1 transition-colors">
+                        ola@studio.com
                       </a>
                     </div>
                   </div>
@@ -195,9 +195,9 @@ const Contact: React.FC = () => {
                       <Phone size={24} />
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500 mb-1">Call Us</p>
-                      <a href="tel:+11234567890" className="font-medium hover:text-accent1 transition-colors">
-                        +1 (123) 456-7890
+                      <p className="text-sm text-gray-500 mb-1">Telefone</p>
+                      <a href="tel:+551123456789" className="font-medium hover:text-accent1 transition-colors">
+                        +55 (11) 2345-6789
                       </a>
                     </div>
                   </div>
@@ -207,29 +207,29 @@ const Contact: React.FC = () => {
                       <MapPin size={24} />
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500 mb-1">Visit Us</p>
+                      <p className="text-sm text-gray-500 mb-1">Visite-nos</p>
                       <address className="not-italic font-medium">
-                        123 Design Avenue<br />
-                        San Francisco, CA 94103
+                        Av. Paulista, 1234<br />
+                        São Paulo, SP 01310-100
                       </address>
                     </div>
                   </div>
                 </div>
                 
                 <div className="mt-12">
-                  <h4 className="text-lg font-semibold mb-4">Office Hours</h4>
+                  <h4 className="text-lg font-semibold mb-4">Horário de Funcionamento</h4>
                   <ul className="space-y-2 text-gray-600">
                     <li className="flex justify-between">
-                      <span>Monday - Friday:</span>
-                      <span>9:00 AM - 6:00 PM</span>
+                      <span>Segunda - Sexta:</span>
+                      <span>9:00 - 18:00</span>
                     </li>
                     <li className="flex justify-between">
-                      <span>Saturday:</span>
-                      <span>By appointment</span>
+                      <span>Sábado:</span>
+                      <span>Com agendamento</span>
                     </li>
                     <li className="flex justify-between">
-                      <span>Sunday:</span>
-                      <span>Closed</span>
+                      <span>Domingo:</span>
+                      <span>Fechado</span>
                     </li>
                   </ul>
                 </div>

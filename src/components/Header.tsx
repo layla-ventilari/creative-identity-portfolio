@@ -8,6 +8,14 @@ const Header: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
+  const menuItems = [
+    { key: 'home', label: 'Início' },
+    { key: 'about', label: 'Sobre' },
+    { key: 'portfolio', label: 'Portfólio' },
+    { key: 'services', label: 'Serviços' },
+    { key: 'contact', label: 'Contato' }
+  ];
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
@@ -58,17 +66,17 @@ const Header: React.FC = () => {
         
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-          {['home', 'about', 'portfolio', 'services', 'contact'].map((item) => (
+          {menuItems.map((item) => (
             <a
-              key={item}
-              href={`#${item}`}
-              onClick={(e) => handleNavClick(e, item)}
+              key={item.key}
+              href={`#${item.key}`}
+              onClick={(e) => handleNavClick(e, item.key)}
               className={cn(
                 "nav-link",
-                activeSection === item ? "active" : ""
+                activeSection === item.key ? "active" : ""
               )}
             >
-              {item.charAt(0).toUpperCase() + item.slice(1)}
+              {item.label}
             </a>
           ))}
         </nav>
@@ -77,7 +85,7 @@ const Header: React.FC = () => {
         <button 
           className="md:hidden focus:outline-none"
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
+          aria-label="Alternar menu"
         >
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -91,17 +99,17 @@ const Header: React.FC = () => {
         )}
       >
         <nav className="flex flex-col items-center space-y-8">
-          {['home', 'about', 'portfolio', 'services', 'contact'].map((item) => (
+          {menuItems.map((item) => (
             <a
-              key={item}
-              href={`#${item}`}
-              onClick={(e) => handleNavClick(e, item)}
+              key={item.key}
+              href={`#${item.key}`}
+              onClick={(e) => handleNavClick(e, item.key)}
               className={cn(
                 "text-xl font-medium",
-                activeSection === item ? "text-accent1" : "text-accent2"
+                activeSection === item.key ? "text-accent1" : "text-accent2"
               )}
             >
-              {item.charAt(0).toUpperCase() + item.slice(1)}
+              {item.label}
             </a>
           ))}
         </nav>
