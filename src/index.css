@@ -6,11 +6,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-  .group\/card {
-    @apply group;
-  }
-}
+/* Remove the problematic @layer components block that tried to use @apply with group */
 
 @layer base {
   :root {
@@ -83,11 +79,13 @@
   }
 
   .project-card {
-    @apply relative overflow-hidden rounded-xl transition-all duration-500 group;
+    @apply relative overflow-hidden rounded-xl transition-all duration-500;
+    /* Note: We've removed the "group" class from here and will add it directly in the component */
   }
 
   .project-card img {
-    @apply h-full w-full object-cover transition-all duration-500 group-hover:scale-105;
+    @apply h-full w-full object-cover transition-all duration-500;
+    /* Note: The group-hover class will be handled in the component */
   }
 
   .section {
