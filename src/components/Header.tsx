@@ -2,18 +2,21 @@
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Menu, X } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
 const Header: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const location = useLocation();
 
   const menuItems = [
-    { key: 'home', label: 'Início' },
-    { key: 'about', label: 'Sobre' },
-    { key: 'portfolio', label: 'Portfólio' },
-    { key: 'services', label: 'Serviços' },
-    { key: 'contact', label: 'Contato' }
+    { key: 'home', label: 'Início', path: '/' },
+    { key: 'about', label: 'Sobre', path: '/#about' },
+    { key: 'portfolio', label: 'Portfólio', path: '/#portfolio' },
+    { key: 'services', label: 'Serviços', path: '/#services' },
+    { key: 'blog', label: 'Blog', path: '/blog' },
+    { key: 'contact', label: 'Contato', path: '/#contact' }
   ];
 
   useEffect(() => {
@@ -21,35 +24,57 @@ const Header: React.FC = () => {
       const scrollPosition = window.scrollY;
       setScrolled(scrollPosition > 50);
       
-      // Update active section based on scroll position
-      const sections = document.querySelectorAll('section[id]');
-      
-      sections.forEach(section => {
-        const sectionTop = (section as HTMLElement).offsetTop - 100;
-        const sectionHeight = (section as HTMLElement).offsetHeight;
-        const sectionId = section.getAttribute('id') || '';
+      // Atualizar seção ativa com base na posição de rolagem apenas na página inicial
+      if (location.pathname === '/') {
+        const sections = document.querySelectorAll('section[id]');
         
-        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-          setActiveSection(sectionId);
-        }
-      });
+        sections.forEach(section => {
+          const sectionTop = (section as HTMLElement).offsetTop - 100;
+          const sectionHeight = (section as HTMLElement).offsetHeight;
+          const sectionId = section.getAttribute('id') || '';
+          
+          if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            setActiveSection(sectionId);
+          }
+        });
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [location.pathname]);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
-    e.preventDefault();
-    const element = document.getElementById(sectionId);
-    if (element) {
-      window.scrollTo({
-        top: element.offsetTop - 80,
-        behavior: 'smooth'
-      });
-      setActiveSection(sectionId);
-      setMenuOpen(false);
+  // Marcar item do blog como ativo quando estiver na página do blog
+  useEffect(() => {
+    if (location.pathname === '/blog' || location.pathname.startsWith('/blog/')) {
+      setActiveSection('blog');
+    } else if (location.pathname === '/') {
+      // Se estiver na home, mantenha o comportamento atual
+    } else {
+      // Para outras páginas, não destaque nenhum item do menu
+      setActiveSection('');
     }
+  }, [location.pathname]);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string, path: string) => {
+    if (path.startsWith('/#')) {
+      e.preventDefault();
+      if (location.pathname === '/') {
+        // Se já estiver na home, role para a seção
+        const element = document.getElementById(sectionId);
+        if (element) {
+          window.scrollTo({
+            top: element.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          setActiveSection(sectionId);
+        }
+      } else {
+        // Se estiver em outra página, navegue para a home com o hash
+        window.location.href = path;
+      }
+    }
+    setMenuOpen(false);
   };
 
   return (
@@ -60,17 +85,17 @@ const Header: React.FC = () => {
       )}
     >
       <div className="container mx-auto flex items-center justify-between">
-        <a href="#home" className="text-2xl font-bold font-display text-accent2">
+        <Link to="/" className="text-2xl font-bold font-display text-accent2">
           studio<span className="text-accent1">.</span>
-        </a>
+        </Link>
         
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
           {menuItems.map((item) => (
             <a
               key={item.key}
-              href={`#${item.key}`}
-              onClick={(e) => handleNavClick(e, item.key)}
+              href={item.path}
+              onClick={(e) => handleNavClick(e, item.key, item.path)}
               className={cn(
                 "nav-link",
                 activeSection === item.key ? "active" : ""
@@ -102,8 +127,8 @@ const Header: React.FC = () => {
           {menuItems.map((item) => (
             <a
               key={item.key}
-              href={`#${item.key}`}
-              onClick={(e) => handleNavClick(e, item.key)}
+              href={item.path}
+              onClick={(e) => handleNavClick(e, item.key, item.path)}
               className={cn(
                 "text-xl font-medium",
                 activeSection === item.key ? "text-accent1" : "text-accent2"
