@@ -65,18 +65,19 @@ const BudgetForm = () => {
     toast({
       title: "Orçamento calculado!",
       description: "Os detalhes foram copiados para o WhatsApp.",
+      className: "bg-ciano text-white",
     });
   };
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-3xl">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-800">Calculadora de Orçamento Inteligente</h2>
-        <p className="text-gray-600 mt-2">Obtenha um orçamento personalizado em segundos com nossa calculadora interativa</p>
+        <h2 className="text-3xl font-bold text-accent2 mb-2">Calculadora de Orçamento Inteligente</h2>
+        <p className="text-gray-600">Obtenha um orçamento personalizado em segundos com nossa calculadora interativa</p>
       </div>
 
       <div className="flex flex-col md:flex-row gap-8">
-        <div className="glass-card p-6 md:w-1/2">
+        <div className="glass-card p-6 md:w-1/2 border-ciano/20">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <ServiceSelect form={form} onServiceChange={handleServiceChange} />
@@ -87,9 +88,14 @@ const BudgetForm = () => {
                 name="quantity"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Quantidade</FormLabel>
-                    <Input type="number" min={1} {...field} />
-                    <FormMessage />
+                    <FormLabel className="text-accent2">Quantidade</FormLabel>
+                    <Input 
+                      type="number" 
+                      min={1} 
+                      {...field} 
+                      className="focus-visible:ring-ciano"
+                    />
+                    <FormMessage className="text-magenta" />
                   </FormItem>
                 )}
               />
@@ -97,7 +103,10 @@ const BudgetForm = () => {
               <UrgencySelect form={form} />
               <ComplexitySelect form={form} />
 
-              <Button type="submit" className="w-full bg-accent1 text-accent2 hover:bg-accent1/90">
+              <Button 
+                type="submit" 
+                className="w-full bg-accent1 text-accent2 hover:bg-accent1/90 transition-all duration-300 focus:ring-2 focus:ring-magenta"
+              >
                 <Calculator className="mr-2 h-4 w-4" />
                 Calcular Orçamento
               </Button>
@@ -105,8 +114,10 @@ const BudgetForm = () => {
           </Form>
         </div>
 
-        <div className="glass-card p-6 md:w-1/2">
-          <h3 className="text-xl font-semibold mb-6 text-gray-700 border-b pb-2">Informações Adicionais</h3>
+        <div className="glass-card p-6 md:w-1/2 border-magenta/20">
+          <h3 className="text-xl font-semibold mb-6 text-accent2 border-b pb-2">
+            Informações Adicionais
+          </h3>
           <BudgetSummary />
         </div>
       </div>

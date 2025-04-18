@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Menu, X } from 'lucide-react';
@@ -16,6 +15,7 @@ const Header: React.FC = () => {
     { key: 'portfolio', label: 'Portfólio', path: '/#portfolio' },
     { key: 'services', label: 'Serviços', path: '/#services' },
     { key: 'blog', label: 'Blog', path: '/blog' },
+    { key: 'orcamento', label: 'Orçamento', path: '/orcamento', highlight: true },
     { key: 'contact', label: 'Contato', path: '/#contact' }
   ];
 
@@ -24,7 +24,6 @@ const Header: React.FC = () => {
       const scrollPosition = window.scrollY;
       setScrolled(scrollPosition > 50);
       
-      // Atualizar seção ativa com base na posição de rolagem apenas na página inicial
       if (location.pathname === '/') {
         const sections = document.querySelectorAll('section[id]');
         
@@ -44,14 +43,11 @@ const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [location.pathname]);
 
-  // Marcar item do blog como ativo quando estiver na página do blog
   useEffect(() => {
     if (location.pathname === '/blog' || location.pathname.startsWith('/blog/')) {
       setActiveSection('blog');
     } else if (location.pathname === '/') {
-      // Se estiver na home, mantenha o comportamento atual
     } else {
-      // Para outras páginas, não destaque nenhum item do menu
       setActiveSection('');
     }
   }, [location.pathname]);
@@ -60,7 +56,6 @@ const Header: React.FC = () => {
     if (path.startsWith('/#')) {
       e.preventDefault();
       if (location.pathname === '/') {
-        // Se já estiver na home, role para a seção
         const element = document.getElementById(sectionId);
         if (element) {
           window.scrollTo({
@@ -70,7 +65,6 @@ const Header: React.FC = () => {
           setActiveSection(sectionId);
         }
       } else {
-        // Se estiver em outra página, navegue para a home com o hash
         window.location.href = path;
       }
     }
@@ -89,7 +83,6 @@ const Header: React.FC = () => {
           studio<span className="text-accent1">.</span>
         </Link>
         
-        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
           {menuItems.map((item) => (
             <a
@@ -98,7 +91,8 @@ const Header: React.FC = () => {
               onClick={(e) => handleNavClick(e, item.key, item.path)}
               className={cn(
                 "nav-link",
-                activeSection === item.key ? "active" : ""
+                activeSection === item.key ? "active" : "",
+                item.highlight ? "text-magenta hover:text-ciano transition-colors duration-300" : ""
               )}
             >
               {item.label}
@@ -106,9 +100,8 @@ const Header: React.FC = () => {
           ))}
         </nav>
         
-        {/* Mobile Menu Button */}
         <button 
-          className="md:hidden focus:outline-none"
+          className="md:hidden focus:outline-none text-accent2"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Alternar menu"
         >
@@ -116,7 +109,6 @@ const Header: React.FC = () => {
         </button>
       </div>
       
-      {/* Mobile Navigation */}
       <div 
         className={cn(
           "fixed inset-0 bg-white z-40 flex flex-col items-center justify-center transition-all duration-300 md:hidden",
@@ -130,8 +122,9 @@ const Header: React.FC = () => {
               href={item.path}
               onClick={(e) => handleNavClick(e, item.key, item.path)}
               className={cn(
-                "text-xl font-medium",
-                activeSection === item.key ? "text-accent1" : "text-accent2"
+                "text-xl font-medium transition-colors duration-300",
+                activeSection === item.key ? "text-accent1" : "text-accent2",
+                item.highlight ? "text-magenta hover:text-ciano" : ""
               )}
             >
               {item.label}
