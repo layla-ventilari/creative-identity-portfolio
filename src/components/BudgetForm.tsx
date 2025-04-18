@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { cn } from '@/lib/utils';
-import { CalendarIcon, Smartphone } from 'lucide-react';
+import { CalendarIcon, Info, Clock, CheckCircle2, Calculator } from 'lucide-react';
 import { format } from 'date-fns';
 import { pt } from 'date-fns/locale';
 import { useToast } from '@/components/ui/use-toast';
@@ -26,236 +26,255 @@ import {
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Calendar } from '@/components/ui/calendar';
 
-// Define services and their base prices
-const SERVICES = [
-  { id: 'design', name: 'Design Gráfico', basePrice: 500 },
-  { id: 'web', name: 'Desenvolvimento Web', basePrice: 1000 },
-  { id: 'ai', name: 'Automação com IA', basePrice: 1500 },
-  { id: 'marketing', name: 'Consultoria em Marketing', basePrice: 300 },
-];
+// Define services and their descriptions
+const SERVICES = {
+  "logotipo": {
+    name: "Logotipo",
+    description: "Criação de logo profissional para sua marca com até 3 revisões.",
+    basePrice: 150
+  },
+  "panfleto": {
+    name: "Panfleto",
+    description: "Design de panfleto promocional otimizado para impressão com layout atrativo.",
+    basePrice: 90
+  },
+  "kit_festa_junina": {
+    name: "Kit Festa Junina",
+    description: "Conjunto completo de design para festa junina (convites, banners, etiquetas).",
+    basePrice: 120
+  },
+  "cartao_digital": {
+    name: "Cartão Digital",
+    description: "Cartão de visita digital interativo para compartilhamento em redes sociais.",
+    basePrice: 70
+  },
+  "banner": {
+    name: "Banner",
+    description: "Design de banner para mídias sociais, sites ou impressão em alta resolução.",
+    basePrice: 110
+  }
+};
+
+const URGENCY_FACTORS = {
+  "normal": { label: "Sem pressa (5-7 dias úteis)", factor: 1 },
+  "standard": { label: "Padrão (3-5 dias úteis)", factor: 1.2 },
+  "urgent": { label: "Urgente (1-2 dias úteis)", factor: 1.6 }
+};
+
+const COMPLEXITY_FACTORS = {
+  "simple": { label: "Simples", factor: 1 },
+  "medium": { label: "Média", factor: 1.3 },
+  "high": { label: "Alta", factor: 1.7 }
+};
 
 // Create schema using zod
 const formSchema = z.object({
   service: z.string({
-    required_error: 'Por favor selecione um serviço',
+    required_error: "Por favor selecione um serviço",
   }),
   quantity: z.coerce.number({
-    required_error: 'A quantidade é obrigatória',
-    invalid_type_error: 'A quantidade deve ser um número',
+    required_error: "A quantidade é obrigatória",
+    invalid_type_error: "A quantidade deve ser um número",
   }).int().positive({
-    message: 'A quantidade deve ser um número positivo',
+    message: "A quantidade deve ser um número positivo",
   }),
-  deadline: z.date({
-    required_error: 'Por favor selecione uma data de entrega',
+  urgency: z.string({
+    required_error: "Por favor selecione a urgência",
+  }),
+  complexity: z.string({
+    required_error: "Por favor selecione a complexidade",
   }),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
-const BudgetForm: React.FC = () => {
+const BudgetForm = () => {
   const { toast } = useToast();
   const [budget, setBudget] = useState<number | null>(null);
-  const [selectedService, setSelectedService] = useState<string>('');
+  const [serviceDescription, setServiceDescription] = useState<string>(SERVICES.logotipo.description);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       quantity: 1,
+      urgency: 'standard',
+      complexity: 'medium',
+      service: 'logotipo'
     },
   });
 
   const calculateBudget = (data: FormValues) => {
-    const service = SERVICES.find(s => s.id === data.service);
-    if (!service) return 0;
+    const service = SERVICES[data.service as keyof typeof SERVICES];
+    const urgencyFactor = URGENCY_FACTORS[data.urgency as keyof typeof URGENCY_FACTORS].factor;
+    const complexityFactor = COMPLEXITY_FACTORS[data.complexity as keyof typeof COMPLEXITY_FACTORS].factor;
     
-    // Calculate days until deadline
-    const today = new Date();
-    const daysUntilDeadline = Math.max(1, Math.ceil((data.deadline.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)));
+    // Volume discount
+    let quantityFactor = 1;
+    if (data.quantity >= 5) quantityFactor = 0.8;
+    else if (data.quantity >= 3) quantityFactor = 0.9;
     
-    // Apply urgency factor: less days = higher cost
-    let urgencyFactor = 1;
-    if (daysUntilDeadline < 3) {
-      urgencyFactor = 1.5;
-    } else if (daysUntilDeadline < 7) {
-      urgencyFactor = 1.2;
-    }
-    
-    return Math.round(service.basePrice * data.quantity * urgencyFactor);
+    const total = service.basePrice * data.quantity * urgencyFactor * complexityFactor * quantityFactor;
+    return Math.round(total);
   };
 
   const onSubmit = (data: FormValues) => {
     const calculatedBudget = calculateBudget(data);
     setBudget(calculatedBudget);
-    setSelectedService(SERVICES.find(s => s.id === data.service)?.name || '');
-  };
-
-  const sendToWhatsApp = () => {
-    if (!budget || !selectedService) return;
     
-    const { service, quantity, deadline } = form.getValues();
-    const formattedDate = format(deadline, 'dd/MM/yyyy', { locale: pt });
-    
-    const message = `Olá! Gostaria de solicitar um orçamento para: ${selectedService}, Quantidade: ${quantity}, Prazo: ${formattedDate}, Valor Estimado: R$${budget.toLocaleString('pt-BR')}`;
+    const message = `Olá! Gostaria de solicitar um orçamento para: ${SERVICES[data.service as keyof typeof SERVICES].name}, Quantidade: ${data.quantity}, Urgência: ${URGENCY_FACTORS[data.urgency as keyof typeof URGENCY_FACTORS].label}, Complexidade: ${COMPLEXITY_FACTORS[data.complexity as keyof typeof COMPLEXITY_FACTORS].label}, Valor Estimado: R$${calculatedBudget.toLocaleString('pt-BR')}`;
     
     window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
     
     toast({
-      title: "Orçamento enviado!",
-      description: "Seu orçamento foi enviado para o WhatsApp. Aguarde nosso contato em breve.",
+      title: "Orçamento calculado!",
+      description: "Os detalhes foram copiados para o WhatsApp.",
     });
   };
 
+  const handleServiceChange = (value: string) => {
+    setServiceDescription(SERVICES[value as keyof typeof SERVICES].description);
+    form.setValue('service', value);
+  };
+
   return (
-    <div className="max-w-2xl mx-auto">
-      <div className="glass-card p-8 mb-8">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <FormField
-              control={form.control}
-              name="service"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Serviço</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Selecione um serviço" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {SERVICES.map((service) => (
-                        <SelectItem key={service.id} value={service.id}>
-                          {service.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            
-            <FormField
-              control={form.control}
-              name="quantity"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Quantidade</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      min={1}
-                      placeholder="Quantidade de itens ou páginas"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            
-            <FormField
-              control={form.control}
-              name="deadline"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Prazo de Entrega</FormLabel>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          variant="outline"
-                          className={cn(
-                            "w-full pl-3 text-left font-normal",
-                            !field.value && "text-muted-foreground"
-                          )}
-                        >
-                          {field.value ? (
-                            format(field.value, "dd 'de' MMMM 'de' yyyy", { locale: pt })
-                          ) : (
-                            <span>Selecione uma data</span>
-                          )}
-                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={field.value}
-                        onSelect={field.onChange}
-                        disabled={(date) => date < new Date()}
-                        locale={pt}
-                      />
-                    </PopoverContent>
-                  </Popover>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            
-            <Button type="submit" className="w-full">
-              Calcular Orçamento
-            </Button>
-          </form>
-        </Form>
+    <div className="container mx-auto px-4 py-8 max-w-3xl">
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-bold text-gray-800">Calculadora de Orçamento Inteligente</h2>
+        <p className="text-gray-600 mt-2">Obtenha um orçamento personalizado em segundos com nossa calculadora interativa</p>
       </div>
-      
-      {budget !== null && (
-        <div className="glass-card p-8 animate-fade-in-up">
-          <h3 className="text-2xl font-bold mb-4 text-center">Orçamento Estimado</h3>
-          <div className="bg-accent1/10 p-4 rounded-lg mb-6">
-            <div className="flex justify-between mb-2">
-              <span className="font-medium">Serviço:</span>
-              <span>{selectedService}</span>
-            </div>
-            <div className="flex justify-between mb-2">
-              <span className="font-medium">Quantidade:</span>
-              <span>{form.getValues().quantity}</span>
-            </div>
-            <div className="flex justify-between mb-2">
-              <span className="font-medium">Prazo:</span>
-              <span>{format(form.getValues().deadline, "dd/MM/yyyy", { locale: pt })}</span>
-            </div>
-            <div className="border-t border-gray-200 my-2"></div>
-            <div className="flex justify-between text-lg font-bold">
-              <span>Valor Total:</span>
-              <span>R$ {budget.toLocaleString('pt-BR')}</span>
-            </div>
-          </div>
+
+      <div className="flex flex-col md:flex-row gap-8">
+        <div className="glass-card p-6 md:w-1/2">
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <FormField
+                control={form.control}
+                name="service"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Tipo de Serviço</FormLabel>
+                    <Select onValueChange={handleServiceChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecione um serviço" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {Object.entries(SERVICES).map(([key, service]) => (
+                          <SelectItem key={key} value={key}>
+                            {service.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <p className="text-sm text-gray-600 mt-1">{serviceDescription}</p>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="quantity"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Quantidade</FormLabel>
+                    <FormControl>
+                      <Input type="number" min={1} {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="urgency"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Urgência</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecione a urgência" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {Object.entries(URGENCY_FACTORS).map(([key, { label }]) => (
+                          <SelectItem key={key} value={key}>
+                            {label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="complexity"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Complexidade</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecione a complexidade" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {Object.entries(COMPLEXITY_FACTORS).map(([key, { label }]) => (
+                          <SelectItem key={key} value={key}>
+                            {label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <Button type="submit" className="w-full bg-accent1 text-accent2 hover:bg-accent1/90">
+                <Calculator className="mr-2 h-4 w-4" />
+                Calcular Orçamento
+              </Button>
+            </form>
+          </Form>
+        </div>
+
+        <div className="glass-card p-6 md:w-1/2">
+          <h3 className="text-xl font-semibold mb-6 text-gray-700 border-b pb-2">Informações Adicionais</h3>
           
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Button
-              variant="default"
-              className="flex-1 gap-2"
-              onClick={sendToWhatsApp}
-            >
-              <Smartphone size={16} />
-              Enviar por WhatsApp
-            </Button>
-            <Button
-              variant="outline"
-              className="flex-1"
-              onClick={() => setBudget(null)}
-            >
-              Fechar Orçamento
-            </Button>
+          <div className="grid grid-cols-1 gap-6">
+            <div className="bg-yellow-50 p-4 rounded-lg">
+              <div className="text-yellow-600 mb-2">
+                <Info className="h-5 w-5" />
+              </div>
+              <h4 className="font-medium text-gray-800 mb-1">Sobre os Valores</h4>
+              <p className="text-sm text-gray-600">Os valores apresentados são estimativas iniciais. O orçamento final pode variar conforme detalhes específicos do projeto.</p>
+            </div>
+            
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <div className="text-blue-600 mb-2">
+                <Clock className="h-5 w-5" />
+              </div>
+              <h4 className="font-medium text-gray-800 mb-1">Prazos de Entrega</h4>
+              <p className="text-sm text-gray-600">Os prazos são estimados e podem variar de acordo com a demanda atual e complexidade do projeto.</p>
+            </div>
+            
+            <div className="bg-green-50 p-4 rounded-lg">
+              <div className="text-green-600 mb-2">
+                <CheckCircle2 className="h-5 w-5" />
+              </div>
+              <h4 className="font-medium text-gray-800 mb-1">Suporte Pós-Projeto</h4>
+              <p className="text-sm text-gray-600">Oferecemos suporte após a entrega e garantimos até 2 revisões gratuitas para ajustes finais.</p>
+            </div>
           </div>
         </div>
-      )}
-      
-      <div className="mt-12">
-        <h3 className="text-xl font-semibold mb-4">Como usar nossa calculadora</h3>
-        <ol className="list-decimal list-inside space-y-2 text-gray-600">
-          <li>Selecione o serviço que você necessita</li>
-          <li>Indique a quantidade de itens (páginas, peças, etc)</li>
-          <li>Defina o prazo desejado para entrega</li>
-          <li>Clique em "Calcular Orçamento" para visualizar o valor estimado</li>
-          <li>Envie o orçamento por WhatsApp para iniciar a conversa</li>
-        </ol>
       </div>
     </div>
   );
