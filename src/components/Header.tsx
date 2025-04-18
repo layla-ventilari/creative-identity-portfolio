@@ -15,7 +15,7 @@ const Header: React.FC = () => {
     { key: 'portfolio', label: 'Portfólio', path: '/#portfolio' },
     { key: 'services', label: 'Serviços', path: '/#services' },
     { key: 'blog', label: 'Blog', path: '/blog' },
-    { key: 'orcamento', label: 'Orçamento', path: '/orcamento', highlight: true },
+    { key: 'orcamento', label: 'Orçamento', path: '/orcamento'},
     { key: 'contact', label: 'Contato', path: '/#contact' }
   ];
 
