@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -8,6 +9,8 @@ import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { ServiceSelect } from './budget/ServiceSelect';
+import { UrgencySelect } from './budget/UrgencySelect';
+import { ComplexitySelect } from './budget/ComplexitySelect';
 import { BudgetSummary } from './budget/BudgetSummary';
 import { SERVICES, URGENCY_FACTORS, COMPLEXITY_FACTORS } from '@/constants/budgetServices';
 import { calculateBudget } from '@/utils/budgetCalculations';
@@ -91,55 +94,8 @@ const BudgetForm = () => {
                 )}
               />
 
-              <FormField
-                control={form.control}
-                name="urgency"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Urgência</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Selecione a urgência" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {Object.entries(URGENCY_FACTORS).map(([key, { label }]) => (
-                          <SelectItem key={key} value={key}>
-                            {label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="complexity"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Complexidade</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Selecione a complexidade" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {Object.entries(COMPLEXITY_FACTORS).map(([key, { label }]) => (
-                          <SelectItem key={key} value={key}>
-                            {label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <UrgencySelect form={form} />
+              <ComplexitySelect form={form} />
 
               <Button type="submit" className="w-full bg-accent1 text-accent2 hover:bg-accent1/90">
                 <Calculator className="mr-2 h-4 w-4" />
