@@ -1,10 +1,7 @@
-
 import React from 'react';
 import { Mail, Phone, MapPin } from 'lucide-react';
-
 const ContactInfo = () => {
-  return (
-    <div className="glass-card p-8 h-full">
+  return <div className="glass-card p-8 h-full">
       <h3 className="text-2xl font-bold mb-6">Informações de Contato</h3>
       
       <div className="space-y-6">
@@ -26,9 +23,7 @@ const ContactInfo = () => {
           </div>
           <div>
             <p className="text-sm text-gray-500 mb-1">Telefone</p>
-            <a href="tel:+551123456789" className="font-medium hover:text-accent1 transition-colors">
-              +55 (11) 2345-6789
-            </a>
+            <a href="tel:+551123456789" className="font-medium hover:text-accent1 transition-colors">+55 (21) 97726-6176</a>
           </div>
         </div>
         
@@ -63,8 +58,6 @@ const ContactInfo = () => {
           </li>
         </ul>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default ContactInfo;
