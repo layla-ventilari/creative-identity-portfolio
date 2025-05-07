@@ -1,51 +1,51 @@
 
 import { CategoryTranslations, Project } from "@/types/portfolio";
 
-// Portfolio project data
 export const projects: Project[] = [
   {
     id: 1,
-    title: "Identidade de Marca",
+    title: "Banner Institucional",
     category: "branding",
     image: "/assets/banner.jpg",
-    description: "Sistema completo de identidade de marca para uma startup de tecnologia moderna, incluindo design de logo, tipografia, paleta de cores e diretrizes de marca."
+    description: "Design de banner institucional com identidade visual forte e alinhada à proposta da marca, ideal para eventos, fachadas ou materiais promocionais."
   },
   {
     id: 2,
-    title: "Redesign de Website",
+    title: "Seu Projeto, Seu Site",
     category: "web",
     image: "/assets/seuprojeto.jpg",
-    description: "Design de UI/UX para uma plataforma de e-commerce, focado em melhorar a experiência do usuário e as taxas de conversão através de navegação intuitiva e design visual limpo."
+    description: "Layout web responsivo criado para apresentar projetos com clareza e impacto. Design personalizado para destacar a essência de cada marca."
   },
   {
     id: 3,
-    title: "Campanha Impressa",
+    title: "Campanha Promocional",
     category: "print",
     image: "/assets/campanha.jpg",
-    description: "Série de materiais impressos para uma campanha de marketing sazonal, incluindo pôsteres, brochuras e peças de mala direta que geraram engajamento significativo com o cliente."
+    description: "Peças gráficas desenvolvidas para campanha publicitária de grande circulação, com foco em impacto visual e coerência com a narrativa da marca."
   },
   {
     id: 4,
-    title: "Embalagem de Produto",
+    title: "Adesivos Personalizados",
     category: "packaging",
     image: "/assets/adesivos.jpg",
-    description: "Design de embalagem de luxo para uma linha de produtos premium, com atenção a materiais sustentáveis e experiências táteis que melhoram a percepção da marca."
+    description: "Criação de adesivos criativos como parte de soluções de embalagem, branding ou brindes. Funcionalidade, estética e personalidade em cada detalhe."
   },
   {
     id: 5,
-    title: "Campanha de Mídia Social",
+    title: "Quem Não É Visto...",
     category: "digital",
     image: "/assets/quem-nao-e-visto.jpg",
-    description: "Campanha abrangente de mídia social com linguagem visual coesa em várias plataformas, resultando em aumento de engajamento e reconhecimento da marca."
+    description: "Campanha digital com foco em visibilidade e posicionamento de marca nas redes. Conteúdo visual chamativo para quem quer ser lembrado."
   },
   {
     id: 6,
-    title: "Relatório Anual",
+    title: "Design para Impressão",
     category: "print",
     image: "/assets/impressao.jpg",
-    description: "Design premiado de relatório anual que transformou dados financeiros complexos em uma narrativa visual envolvente para stakeholders e investidores."
+    description: "Projeto gráfico pensado para materiais impressos com alta qualidade. Diagramação refinada, cores equilibradas e acabamento profissional."
   }
 ];
+
 
 // Extract unique categories
 export const getCategories = (): string[] => {

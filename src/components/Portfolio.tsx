@@ -1,31 +1,139 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { X } from 'lucide-react';
 import { Project } from '@/types/portfolio';
 import { projects, getCategories, categoryTranslations } from '@/constants/portfolioProjects';
 
+// Componente para o cabeçalho da seção
+const PortfolioHeader = React.forwardRef<HTMLDivElement>((_, ref) => (
+  <div className="text-center max-w-3xl mx-auto mb-12 opacity-0" ref={ref}>
+    <p className="section-subheading">Nosso Trabalho</p>
+    <h2 className="section-heading mx-auto">Projetos Selecionados</h2>
+    <p className="text-gray-600 mt-4">
+      Explore nosso portfólio de trabalhos em várias disciplinas e indústrias.
+      Cada projeto representa nosso compromisso com o design reflexivo e comunicação visual eficaz.
+    </p>
+  </div>
+));
+
+// Componente para os botões de categorias
+const CategoryButtons: React.FC<{
+  categories: string[];
+  selectedCategory: string;
+  onCategoryChange: (category: string) => void;
+}> = ({ categories, selectedCategory, onCategoryChange }) => (
+  <div className="flex justify-center mb-12">
+    <div className="flex flex-wrap gap-2 justify-center">
+      {categories.map((cat) => (
+        <button
+          key={cat}
+          onClick={() => onCategoryChange(cat)}
+          className={cn(
+            "px-4 py-2 text-sm rounded-full transition-all duration-300",
+            selectedCategory === cat
+              ? "bg-accent1 text-accent2"
+              : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+          )}
+        >
+          {categoryTranslations[cat] || cat.charAt(0).toUpperCase() + cat.slice(1)}
+        </button>
+      ))}
+    </div>
+  </div>
+);
+
+// Componente para os cards de projetos
+const ProjectCard: React.FC<{
+  project: Project;
+  onClick: () => void;
+}> = ({ project, onClick }) => (
+  <div className="project-card group" onClick={onClick}>
+    <div className="aspect-[4/3] overflow-hidden rounded-xl flex items-center justify-center">
+      <img
+        src={project.image}
+        alt={project.title}
+        className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
+      />
+    </div>
+    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+      <div className="text-white">
+        <h3 className="text-xl font-bold">{project.title}</h3>
+        <p className="text-white/80 text-sm mt-1">
+          {categoryTranslations[project.category] ||
+            project.category.charAt(0).toUpperCase() + project.category.slice(1)}
+        </p>
+      </div>
+    </div>
+  </div>
+);
+
+// Componente para o modal de detalhes do projeto
+const ProjectDetailsModal: React.FC<{
+  project: Project;
+  onClose: () => void;
+}> = ({ project, onClose }) => (
+  <div className="fixed inset-0 z-50 flex items-center justify-center px-4 sm:px-0">
+    <div
+      className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+      onClick={onClose}
+    ></div>
+    <div className="relative bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-auto animate-scale-in">
+      <button
+        className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-colors"
+        onClick={onClose}
+      >
+        <X size={24} />
+      </button>
+      <div className="grid grid-cols-1 md:grid-cols-2">
+        <div className="aspect-square md:aspect-auto">
+          <img
+            src={project.image}
+            alt={project.title}
+            className="w-full h-full object-cover rounded-t-xl md:rounded-l-xl md:rounded-tr-none"
+          />
+        </div>
+        <div className="p-8">
+          <p className="text-accent1 text-sm font-medium uppercase tracking-wider mb-2">
+            {categoryTranslations[project.category] ||
+              project.category.charAt(0).toUpperCase() + project.category.slice(1)}
+          </p>
+          <h3 className="text-2xl font-bold mb-4">{project.title}</h3>
+          <p className="text-gray-600 mb-6">{project.description}</p>
+          <div className="border-t border-gray-200 pt-6 mt-auto">
+            <a
+              href="#contact"
+              className="btn btn-primary px-6 py-2"
+              onClick={onClose}
+            >
+              Consulte Sobre Projetos Similares
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
 const Portfolio: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [category, setCategory] = useState('all');
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const headingRef = useRef<HTMLHeadingElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
-  
-  const filteredProjects = category === 'all' 
-    ? projects 
-    : projects.filter(project => project.category === category);
+
+  const filteredProjects = category === 'all'
+    ? projects
+    : projects.filter((project) => project.category === category);
 
   const categories = getCategories();
 
   useEffect(() => {
     const observerOptions = {
       threshold: 0.1,
-      rootMargin: '0px 0px -100px 0px'
+      rootMargin: '0px 0px -100px 0px',
     };
 
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('animate-fade-in-up');
           observer.unobserve(entry.target);
@@ -45,113 +153,36 @@ const Portfolio: React.FC = () => {
   return (
     <section id="portfolio" className="section bg-gray-50">
       <div className="container mx-auto">
-        <div ref={sectionRef}>
-          <div className="text-center max-w-3xl mx-auto mb-12 opacity-0" ref={headingRef}>
-            <p className="section-subheading">Nosso Trabalho</p>
-            <h2 className="section-heading mx-auto">Projetos Selecionados</h2>
-            <p className="text-gray-600 mt-4">
-              Explore nosso portfólio de trabalhos em várias disciplinas e indústrias.
-              Cada projeto representa nosso compromisso com o design reflexivo e comunicação visual eficaz.
-            </p>
-          </div>
-          
-          <div className="flex justify-center mb-12">
-            <div className="flex flex-wrap gap-2 justify-center">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setCategory(cat)}
-                  className={cn(
-                    "px-4 py-2 text-sm rounded-full transition-all duration-300",
-                    category === cat 
-                      ? "bg-accent1 text-accent2" 
-                      : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                  )}
-                >
-                  {categoryTranslations[cat] || cat.charAt(0).toUpperCase() + cat.slice(1)}
-                </button>
-              ))}
-            </div>
-          </div>
-          
-          <div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 opacity-0" 
-            ref={projectsRef}
-            style={{ animationDelay: '0.2s' }}
-          >
-            {filteredProjects.map((project) => (
-              <div 
-                key={project.id} 
-                className="project-card group"
-                onClick={() => setSelectedProject(project)}
-              >
-                <div className="aspect-[4/3] overflow-hidden rounded-xl">
-                  <img 
-                    src={project.image} 
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
-                  />
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                  <div className="text-white">
-                    <h3 className="text-xl font-bold">{project.title}</h3>
-                    <p className="text-white/80 text-sm mt-1">
-                      {categoryTranslations[project.category] || project.category.charAt(0).toUpperCase() + project.category.slice(1)}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+        <PortfolioHeader ref={headingRef} />
+        <CategoryButtons
+          categories={categories}
+          selectedCategory={category}
+          onCategoryChange={setCategory}
+        />
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 opacity-0"
+          ref={projectsRef}
+          style={{ animationDelay: '0.2s' }}
+        >
+          {filteredProjects.map((project) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              onClick={() => setSelectedProject(project)}
+            />
+          ))}
         </div>
       </div>
-      
-      {/* Project Details Modal */}
       {selectedProject && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center px-4 sm:px-0">
-          <div 
-            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
-            onClick={() => setSelectedProject(null)}
-          ></div>
-          <div className="relative bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-auto animate-scale-in">
-            <button 
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-colors"
-              onClick={() => setSelectedProject(null)}
-            >
-              <X size={24} />
-            </button>
-            <div className="grid grid-cols-1 md:grid-cols-2">
-              <div className="aspect-square md:aspect-auto">
-                <img 
-                  src={selectedProject.image} 
-                  alt={selectedProject.title}
-                  className="w-full h-full object-cover rounded-t-xl md:rounded-l-xl md:rounded-tr-none"
-                />
-              </div>
-              <div className="p-8">
-                <p className="text-accent1 text-sm font-medium uppercase tracking-wider mb-2">
-                  {categoryTranslations[selectedProject.category] || selectedProject.category.charAt(0).toUpperCase() + selectedProject.category.slice(1)}
-                </p>
-                <h3 className="text-2xl font-bold mb-4">{selectedProject.title}</h3>
-                <p className="text-gray-600 mb-6">
-                  {selectedProject.description}
-                </p>
-                <div className="border-t border-gray-200 pt-6 mt-auto">
-                  <a 
-                    href="#contact" 
-                    className="btn btn-primary px-6 py-2"
-                    onClick={() => setSelectedProject(null)}
-                  >
-                    Consulte Sobre Projetos Similares
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ProjectDetailsModal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
       )}
     </section>
   );
 };
+
+PortfolioHeader.displayName = 'PortfolioHeader';
 
 export default Portfolio;
