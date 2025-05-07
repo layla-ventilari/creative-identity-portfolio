@@ -2,14 +2,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { X } from 'lucide-react';
-
-interface Project {
-  id: number;
-  title: string;
-  category: string;
-  image: string;
-  description: string;
-}
+import { Project } from '@/types/portfolio';
+import { projects, getCategories, categoryTranslations } from '@/constants/portfolioProjects';
 
 const Portfolio: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -18,66 +12,11 @@ const Portfolio: React.FC = () => {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
   
-  // Sample projects data
-  const projects: Project[] = [
-    {
-      id: 1,
-      title: "Identidade de Marca",
-      category: "branding",
-      image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80",
-      description: "Sistema completo de identidade de marca para uma startup de tecnologia moderna, incluindo design de logo, tipografia, paleta de cores e diretrizes de marca."
-    },
-    {
-      id: 2,
-      title: "Redesign de Website",
-      category: "web",
-      image: "https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80",
-      description: "Design de UI/UX para uma plataforma de e-commerce, focado em melhorar a experiência do usuário e as taxas de conversão através de navegação intuitiva e design visual limpo."
-    },
-    {
-      id: 3,
-      title: "Campanha Impressa",
-      category: "print",
-      image: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80",
-      description: "Série de materiais impressos para uma campanha de marketing sazonal, incluindo pôsteres, brochuras e peças de mala direta que geraram engajamento significativo com o cliente."
-    },
-    {
-      id: 4,
-      title: "Embalagem de Produto",
-      category: "packaging",
-      image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80",
-      description: "Design de embalagem de luxo para uma linha de produtos premium, com atenção a materiais sustentáveis e experiências táteis que melhoram a percepção da marca."
-    },
-    {
-      id: 5,
-      title: "Campanha de Mídia Social",
-      category: "digital",
-      image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80",
-      description: "Campanha abrangente de mídia social com linguagem visual coesa em várias plataformas, resultando em aumento de engajamento e reconhecimento da marca."
-    },
-    {
-      id: 6,
-      title: "Relatório Anual",
-      category: "print",
-      image: "https://images.unsplash.com/photo-1572044162444-ad60f128bdea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80",
-      description: "Design premiado de relatório anual que transformou dados financeiros complexos em uma narrativa visual envolvente para stakeholders e investidores."
-    }
-  ];
-
   const filteredProjects = category === 'all' 
     ? projects 
     : projects.filter(project => project.category === category);
 
-  const categories = ['all', ...new Set(projects.map(project => project.category))];
-
-  const categoryTranslations: Record<string, string> = {
-    'all': 'Todos',
-    'branding': 'Branding',
-    'web': 'Web',
-    'print': 'Impressão',
-    'packaging': 'Embalagem',
-    'digital': 'Digital'
-  };
+  const categories = getCategories();
 
   useEffect(() => {
     const observerOptions = {
