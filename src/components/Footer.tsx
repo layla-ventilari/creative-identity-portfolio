@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Instagram, Twitter, Dribbble, Linkedin } from 'lucide-react';
+import { Instagram, Linkedin, Facebook } from 'lucide-react';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -11,21 +11,18 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="md:col-span-2">
             <a href="#" className="text-2xl font-bold font-display inline-block mb-4">
-              studio<span className="text-accent1">.</span>
+              ArtDesignIlha<span className="text-accent1">.</span>
             </a>
             <p className="text-gray-400 max-w-md mb-6">
               Somos um estúdio de design dedicado a criar experiências visuais significativas 
               que contam sua história e conectam com seu público.
             </p>
             <div className="flex space-x-4">
+              <a href="https://www.facebook.com/artdesignilha" className="text-gray-400 hover:text-accent1 transition-colors duration-300">
+                <Facebook size={20} />
+              </a>
               <a href="#" className="text-gray-400 hover:text-accent1 transition-colors duration-300">
                 <Instagram size={20} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-accent1 transition-colors duration-300">
-                <Twitter size={20} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-accent1 transition-colors duration-300">
-                <Dribbble size={20} />
               </a>
               <a href="#" className="text-gray-400 hover:text-accent1 transition-colors duration-300">
                 <Linkedin size={20} />
@@ -57,16 +54,16 @@ const Footer: React.FC = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Entre em Contato</h4>
             <div className="space-y-4 text-gray-400">
-              <p>Av. Paulista, 1234<br />São Paulo, SP 01310-100</p>
-              <p>ola@studio.com</p>
-              <p>+55 (11) 2345-6789</p>
+              <p>Estr. do Rio Jequiá, 1546 - Zumbi,<br />Rio de Janeiro - RJ, 21930-007</p>
+              <p>ilha.artdesign@gmail.com</p>
+              <p>(21) 97726-6176</p>
             </div>
           </div>
         </div>
         
         <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-500 text-sm">
-            &copy; {currentYear} Studio Design Agency. Todos os direitos reservados.
+            &copy; {currentYear} ArtDesignIlha. Todos os direitos reservados.
           </p>
           <div className="mt-4 md:mt-0 flex space-x-6 text-sm text-gray-500">
             <a href="#" className="hover:text-accent1 transition-colors duration-300">Política de Privacidade</a>

@@ -11,8 +11,8 @@ const ContactInfo = () => {
           </div>
           <div>
             <p className="text-sm text-gray-500 mb-1">Email</p>
-            <a href="mailto:ola@studio.com" className="font-medium hover:text-accent1 transition-colors">
-              ola@studio.com
+            <a href="mailto:ilha.artdesign@gmail.com" className="font-medium hover:text-accent1 transition-colors">
+            ilha.artdesign@gmail.com
             </a>
           </div>
         </div>
@@ -23,7 +23,7 @@ const ContactInfo = () => {
           </div>
           <div>
             <p className="text-sm text-gray-500 mb-1">Telefone</p>
-            <a href="tel:+551123456789" className="font-medium hover:text-accent1 transition-colors">+55 (21) 97726-6176</a>
+            <a href="tel:+5521977266176" className="font-medium hover:text-accent1 transition-colors">+55 (21) 97726-6176</a>
           </div>
         </div>
         
@@ -32,10 +32,10 @@ const ContactInfo = () => {
             <MapPin size={24} />
           </div>
           <div>
-            <p className="text-sm text-gray-500 mb-1">Visite-nos</p>
+            <p className="text-sm text-gray-500 mb-1">Endereço</p>
             <address className="not-italic font-medium">
-              Av. Paulista, 1234<br />
-              São Paulo, SP 01310-100
+            Estr. do Rio Jequiá, 1546 - Zumbi, <br />
+            Rio de Janeiro - RJ
             </address>
           </div>
         </div>
@@ -50,7 +50,7 @@ const ContactInfo = () => {
           </li>
           <li className="flex justify-between">
             <span>Sábado:</span>
-            <span>Com agendamento</span>
+            <span>Fechado</span>
           </li>
           <li className="flex justify-between">
             <span>Domingo:</span>

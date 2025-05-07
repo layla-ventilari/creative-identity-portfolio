@@ -96,16 +96,6 @@ const Hero: React.FC = () => {
           </div>
         </div>
       </div>
-      
-      <a 
-        href="#about" 
-        onClick={handleScrollToAbout}
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center justify-center text-accent2 hover:text-accent1 transition-colors duration-300"
-        aria-label="Rolar para a seção Sobre"
-      >
-        <span className="text-sm mb-2">Rolar</span>
-        <ChevronDown className="animate-float" size={24} />
-      </a>
     </section>
   );
 };

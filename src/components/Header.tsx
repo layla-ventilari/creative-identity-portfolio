@@ -3,35 +3,34 @@ import { cn } from '@/lib/utils';
 import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
+const menuItems = [
+  { key: 'home', label: 'Início', path: '/', highlight: false },
+  { key: 'about', label: 'Sobre', path: '/#about', highlight: false },
+  { key: 'portfolio', label: 'Portfólio', path: '/#portfolio', highlight: false },
+  { key: 'services', label: 'Serviços', path: '/#services', highlight: false },
+  { key: 'blog', label: 'Blog', path: '/blog', highlight: false },
+  { key: 'orcamento', label: 'Orçamento', path: '/orcamento', highlight: false },
+  { key: 'contact', label: 'Contato', path: '/#contact', highlight: false },
+];
+
 const Header: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const location = useLocation();
 
-  const menuItems = [
-    { key: 'home', label: 'Início', path: '/' },
-    { key: 'about', label: 'Sobre', path: '/#about' },
-    { key: 'portfolio', label: 'Portfólio', path: '/#portfolio' },
-    { key: 'services', label: 'Serviços', path: '/#services' },
-    { key: 'blog', label: 'Blog', path: '/blog' },
-    { key: 'orcamento', label: 'Orçamento', path: '/orcamento'},
-    { key: 'contact', label: 'Contato', path: '/#contact' }
-  ];
-
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       setScrolled(scrollPosition > 50);
-      
+
       if (location.pathname === '/') {
         const sections = document.querySelectorAll('section[id]');
-        
         sections.forEach(section => {
           const sectionTop = (section as HTMLElement).offsetTop - 100;
           const sectionHeight = (section as HTMLElement).offsetHeight;
           const sectionId = section.getAttribute('id') || '';
-          
+
           if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
             setActiveSection(sectionId);
           }
@@ -60,7 +59,7 @@ const Header: React.FC = () => {
         if (element) {
           window.scrollTo({
             top: element.offsetTop - 80,
-            behavior: 'smooth'
+            behavior: 'smooth',
           });
           setActiveSection(sectionId);
         }
@@ -72,17 +71,17 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header 
+    <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 px-6 py-4 transition-all duration-300",
         scrolled ? "bg-white/80 backdrop-blur-md shadow-sm" : "bg-transparent"
       )}
     >
       <div className="container mx-auto flex items-center justify-between">
-        <Link to="/" className="text-2xl font-bold font-display text-accent2">
-          studio<span className="text-accent1">.</span>
+        <Link to="/" className="flex items-center">
+          <img src="/logo-1.svg" alt="Logo" className="h-12" />
         </Link>
-        
+
         <nav className="hidden md:flex items-center space-x-8">
           {menuItems.map((item) => (
             <a
@@ -99,8 +98,8 @@ const Header: React.FC = () => {
             </a>
           ))}
         </nav>
-        
-        <button 
+
+        <button
           className="md:hidden focus:outline-none text-accent2"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Alternar menu"
@@ -108,8 +107,8 @@ const Header: React.FC = () => {
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
-      
-      <div 
+
+      <div
         className={cn(
           "fixed inset-0 bg-white z-40 flex flex-col items-center justify-center transition-all duration-300 md:hidden",
           menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
