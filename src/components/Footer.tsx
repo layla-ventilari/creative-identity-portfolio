@@ -63,7 +63,7 @@ const Footer: React.FC = () => {
         
         <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-500 text-sm">
-            &copy; {currentYear} ArtDesignIlha. Todos os direitos reservados.
+            &copy; 2025 Lavent Studio. Todos os direitos reservados.
           </p>
           <div className="mt-4 md:mt-0 flex space-x-6 text-sm text-gray-500">
             <a href="#" className="hover:text-accent1 transition-colors duration-300">Política de Privacidade</a>
