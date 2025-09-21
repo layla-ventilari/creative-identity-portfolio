@@ -1,29 +1,34 @@
 
 export const SERVICES = {
   "logotipo": {
-    name: "Logotipo",
-    description: "Criação de logo profissional para sua marca com até 3 revisões.",
-    basePrice: 150
+    name: "Criação de Logotipo",
+    description: "Criação de logo profissional para sua marca com até 3 revisões e arquivos em alta resolução.",
+    basePrice: 450
   },
-  "panfleto": {
-    name: "Panfleto",
-    description: "Design de panfleto promocional otimizado para impressão com layout atrativo.",
-    basePrice: 90
+  "cartao_visita": {
+    name: "Cartões de Visita",
+    description: "Design de cartões de visita profissionais com layout personalizado e otimizado para impressão.",
+    basePrice: 85
   },
-  "kit_festa_junina": {
-    name: "Kit Festa Junina",
-    description: "Conjunto completo de design para festa junina (convites, banners, etiquetas).",
-    basePrice: 120
-  },
-  "cartao_digital": {
-    name: "Cartão Digital",
-    description: "Cartão de visita digital interativo para compartilhamento em redes sociais.",
-    basePrice: 70
+  "flyer": {
+    name: "Flyers",
+    description: "Design de flyer promocional otimizado para impressão com layout atrativo e impactante.",
+    basePrice: 65
   },
   "banner": {
-    name: "Banner",
-    description: "Design de banner para mídias sociais, sites ou impressão em alta resolução.",
-    basePrice: 110
+    name: "Banners",
+    description: "Design de banner para mídias sociais, sites ou impressão em alta resolução com até 2 revisões.",
+    basePrice: 120
+  },
+  "layout_exclusivo": {
+    name: "Layout Exclusivo",
+    description: "Desenvolvimento de layout personalizado e exclusivo para seu projeto específico.",
+    basePrice: 295
+  },
+  "kit_eventos": {
+    name: "Kits para Eventos",
+    description: "Conjunto completo de design para eventos (convites, banners, etiquetas, decoração).",
+    basePrice: 380
   }
 };
 
