@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { ServiceSelect } from './budget/ServiceSelect';
 import { UrgencySelect } from './budget/UrgencySelect';
 import { ComplexitySelect } from './budget/ComplexitySelect';
-import { BudgetSummary } from './budget/BudgetSummary';
+import { BudgetDisplay } from './budget/BudgetDisplay';
 import { SERVICES, URGENCY_FACTORS, COMPLEXITY_FACTORS } from '@/constants/budgetServices';
 import { calculateBudget } from '@/utils/budgetCalculations';
 import type { FormValues } from '@/types/budget';
@@ -48,6 +48,10 @@ const BudgetForm = () => {
       service: 'logotipo'
     },
   });
+
+  // Watch form values for real-time calculation
+  const watchedValues = form.watch();
+  const isFormComplete = watchedValues.service && watchedValues.quantity && watchedValues.urgency && watchedValues.complexity;
 
   const handleServiceChange = (value: string) => {
     setServiceDescription(SERVICES[value as keyof typeof SERVICES].description);
@@ -114,11 +118,11 @@ const BudgetForm = () => {
           </Form>
         </div>
 
-        <div className="glass-card p-6 md:w-1/2 border-magenta/20">
-          <h3 className="text-xl font-semibold mb-6 text-accent2 border-b pb-2">
-            Informações Adicionais
-          </h3>
-          <BudgetSummary />
+        <div className="md:w-1/2">
+          <BudgetDisplay 
+            formData={watchedValues} 
+            isComplete={!!isFormComplete}
+          />
         </div>
       </div>
     </div>
