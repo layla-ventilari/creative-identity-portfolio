@@ -48,11 +48,13 @@ const ProjectCard: React.FC<{
   onClick: () => void;
 }> = ({ project, onClick }) => (
   <div className="project-card group" onClick={onClick}>
-    <div className="aspect-[4/3] overflow-hidden rounded-xl flex items-center justify-center">
+    {/* Ajuste para aspecto quadrado e responsividade */}
+    <div className="aspect-square overflow-hidden rounded-xl flex items-center justify-center w-full">
       <img
         src={project.image}
         alt={project.title}
         className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
+        style={{ maxWidth: '100%', maxHeight: '100%' }}
       />
     </div>
     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">

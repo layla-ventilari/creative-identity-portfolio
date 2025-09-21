@@ -11,10 +11,10 @@ export const projects: Project[] = [
   },
   {
     id: 2,
-    title: "Seu Projeto, Seu Site",
-    category: "web",
-    image: "/assets/seuprojeto.jpg",
-    description: "Layout web responsivo criado para apresentar projetos com clareza e impacto. Design personalizado para destacar a essência de cada marca."
+    title: "Design para Impressão",
+    category: "print",
+    image: "/assets/impressao.jpg",
+    description: "Projeto gráfico pensado para materiais impressos com alta qualidade. Diagramação refinada, cores equilibradas e acabamento profissional."
   },
   {
     id: 3,
@@ -39,11 +39,11 @@ export const projects: Project[] = [
   },
   {
     id: 6,
-    title: "Design para Impressão",
-    category: "print",
-    image: "/assets/impressao.jpg",
-    description: "Projeto gráfico pensado para materiais impressos com alta qualidade. Diagramação refinada, cores equilibradas e acabamento profissional."
-  }
+    title: "Seu Projeto, Seu Site",
+    category: "web",
+    image: "/assets/web-1.png",
+    description: "Layout web responsivo criado para apresentar projetos com clareza e impacto. Design personalizado para destacar a essência de cada marca."
+  },
 ];
 
 
