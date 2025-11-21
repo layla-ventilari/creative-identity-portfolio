@@ -26,8 +26,8 @@ const Hero: React.FC = () => {
   );
 
   return (
-    <section id="home" className="relative w-full pt-16 overflow-hidden">
-      <div className="w-full">
+    <section id="home" className="relative w-full pt-16 overflow-hidden flex justify-center">
+      <div className="w-1/2">
         <Carousel
           opts={{
             align: "center",
