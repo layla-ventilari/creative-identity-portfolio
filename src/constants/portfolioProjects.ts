@@ -41,7 +41,7 @@ export const projects: Project[] = [
     id: 6,
     title: "Seu Projeto, Seu Site",
     category: "web",
-    image: "/assets/web-1.png",
+    image: "/assets/web-2.png",
     description: "Layout web responsivo criado para apresentar projetos com clareza e impacto. Design personalizado para destacar a essência de cada marca."
   },
 ];
