@@ -79,7 +79,7 @@ const Header: React.FC = () => {
     >
       <div className="container mx-auto flex items-center justify-between">
         <Link to="/" className="flex items-center">
-          <img src="/logo-1.svg" alt="Logo" className="h-12" />
+          <img src="/logo-artdesign.jpg" alt="Art Design Ilha - Gráfica Rápida" className="h-12" />
         </Link>
 
         <nav className="hidden md:flex items-center space-x-8">
