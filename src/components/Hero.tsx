@@ -26,8 +26,8 @@ const Hero: React.FC = () => {
   );
 
   return (
-    <section id="home" className="relative w-full pt-16 overflow-hidden flex justify-center">
-      <div className="w-1/2">
+    <section id="home" className="relative w-full pt-16 overflow-hidden">
+      <div className="w-full">
         <Carousel
           opts={{
             align: "center",
@@ -41,11 +41,11 @@ const Hero: React.FC = () => {
           <CarouselContent className="ml-0">
             {heroSlides.map((slide) => (
               <CarouselItem key={slide.id} className="pl-0">
-                <div className="relative w-full h-[400px] md:h-[600px]">
+                <div className="relative w-full min-h-[60vh] md:min-h-[80vh]">
                   <img 
                     src={slide.image} 
                     alt={slide.alt}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full min-h-[60vh] md:min-h-[80vh] object-cover"
                   />
                 </div>
               </CarouselItem>
