@@ -24,33 +24,28 @@ const Services: React.FC = () => {
   const services: Service[] = [
     {
       icon: <Palette size={32} />,
-      title: "Identidade de Marca",
-      description: "Desenvolvimento abrangente de identidade de marca, incluindo design de logo, paletas de cores, tipografia e diretrizes de marca."
-    },
-    {
-      icon: <Globe size={32} />,
-      title: "Design Web",
-      description: "Designs de sites bonitos e funcionais que envolvem usuários e impulsionam conversões, com foco na experiência do usuário."
-    },
-    {
-      icon: <PenTool size={32} />,
-      title: "Ilustração",
-      description: "Ilustrações personalizadas e ativos visuais que realçam a personalidade da sua marca e comunicam ideias complexas."
-    },
-    {
-      icon: <Package size={32} />,
-      title: "Design de Embalagens",
-      description: "Soluções inovadoras de embalagens que se destacam nas prateleiras e criam experiências memoráveis ao desembrulhar."
+      title: "Identidade Visual",
+      description: "Marcas construídas com propósito, clareza e originalidade."
     },
     {
       icon: <Image size={32} />,
-      title: "Design para Impressão",
-      description: "Materiais impressos de alta qualidade, desde cartões de visita e brochuras até displays de grande formato e relatórios anuais."
+      title: "Design para Impressos",
+      description: "Cartões, panfletos, etiquetas, embalagens e tudo que sua marca precisa para estar presente no mundo físico."
+    },
+    {
+      icon: <Package size={32} />,
+      title: "Impressão Profissional",
+      description: "Cores precisas, acabamento impecável e qualidade premium."
+    },
+    {
+      icon: <PenTool size={32} />,
+      title: "Peças Promocionais",
+      description: "Materiais criativos que aumentam sua presença e reforçam sua mensagem."
     },
     {
       icon: <Type size={32} />,
-      title: "Tipografia",
-      description: "Design de tipos personalizados e soluções tipográficas que melhoram a legibilidade e o reconhecimento da marca."
+      title: "Soluções Sob Medida",
+      description: "Cada cliente é único. Criamos peças totalmente personalizadas."
     }
   ];
 
@@ -84,10 +79,9 @@ const Services: React.FC = () => {
         <div ref={sectionRef}>
           <div className="text-center max-w-3xl mx-auto mb-16 opacity-0" ref={headingRef}>
             <p className="section-subheading">Nossa Expertise</p>
-            <h2 className="section-heading mx-auto">Serviços que Oferecemos</h2>
+            <h2 className="section-heading mx-auto">O que fazemos</h2>
             <p className="text-gray-600 mt-4">
-              Oferecemos uma gama abrangente de serviços de design 
-              para ajudar você a construir e fortalecer sua presença visual.
+              Criamos soluções completas em design e impressão para marcas que querem se destacar.
             </p>
           </div>
           

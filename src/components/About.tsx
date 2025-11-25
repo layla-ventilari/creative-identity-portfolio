@@ -38,18 +38,18 @@ const About: React.FC = () => {
   const features = [
     {
       icon: <Lightbulb size={24} />,
-      title: "Estratégia Criativa",
-      description: "Combinamos pensamento estratégico com execução criativa para entregar resultados que superam expectativas."
+      title: "Criatividade com propósito",
+      description: "Cada projeto é pensado estrategicamente para gerar impacto real e fortalecer sua marca."
     },
     {
       icon: <Palette size={24} />,
-      title: "Excelência em Design",
-      description: "Nosso compromisso com a excelência em design garante que cada pixel tenha um propósito na sua história visual."
+      title: "Acabamento impecável do início ao fim",
+      description: "Qualidade premium em cada detalhe, da criação à entrega final."
     },
     {
       icon: <Users size={24} />,
-      title: "Parceria com Clientes",
-      description: "Acreditamos em parcerias colaborativas, trabalhando próximo de você durante toda a jornada de design."
+      title: "Atendimento humano e colaborativo",
+      description: "Trabalhamos lado a lado com você, ouvindo, construindo e evoluindo juntos."
     }
   ];
 
@@ -68,15 +68,8 @@ const About: React.FC = () => {
               ref={contentRef}
               style={{ animationDelay: '0.2s' }}
             >
-              <p className="text-gray-600 mb-6">
-                Somos um estúdio de design criativo dedicado a criar experiências visuais significativas. 
-                Nossa abordagem equilibra inovação criativa com funcionalidade prática, garantindo 
-                que cada design não apenas pareça deslumbrante, mas também entregue resultados.
-              </p>
               <p className="text-gray-600">
-                Com anos de experiência no setor, entendemos o que faz o design funcionar. 
-                Nos orgulhamos da nossa capacidade de ouvir, colaborar e transformar ideias 
-                em histórias visuais que ressoam com o público e atingem objetivos de negócio.
+                Somos um estúdio de design e comunicação visual que une criatividade, técnica e tecnologia para dar vida a marcas e experiências. A ArtDesign Ilha vai além da impressão: construímos peças que conectam, encantam e fortalecem negócios.
               </p>
             </div>
           </div>
