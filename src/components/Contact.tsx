@@ -41,10 +41,9 @@ const Contact: React.FC = () => {
         <div ref={sectionRef}>
           <div className="text-center max-w-3xl mx-auto mb-16 opacity-0" ref={headingRef}>
             <p className="section-subheading">Entre em Contato</p>
-            <h2 className="section-heading mx-auto">Vamos Criar Juntos</h2>
+            <h2 className="section-heading mx-auto">Vamos construir algo incrível?</h2>
             <p className="text-gray-600 mt-4">
-              Pronto para iniciar seu próximo projeto? Contate-nos hoje para uma consulta 
-              e descubra como podemos dar vida à sua visão.
+              Envie sua ideia ou peça um orçamento.
             </p>
           </div>
           
