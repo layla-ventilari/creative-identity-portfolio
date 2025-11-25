@@ -19,16 +19,16 @@ const Hero: React.FC = () => {
     delay: 5000,
     stopOnInteraction: true
   }));
-  return <section id="home" className="relative w-full pt-16 overflow-hidden">
-      <div className="w-full">
+  return <section id="home" className="relative w-full max-w-[100%] mx-auto pt-16 overflow-hidden">
+      <div className="w-full min-h-[200px] md:min-h-[320px] flex items-center justify-center">
         <Carousel opts={{
         align: "center",
         loop: true
       }} plugins={[plugin.current]} className="w-full" onMouseEnter={() => plugin.current.stop()} onMouseLeave={() => plugin.current.play()}>
           <CarouselContent className="ml-0">
             {heroSlides.map(slide => <CarouselItem key={slide.id} className="pl-0">
-                <div className="relative w-full min-h-[60vh] md:min-h-[80vh]">
-                  <img src={slide.image} alt={slide.alt} className="w-full h-full min-h-[60vh] md:min-h-[80vh] object-cover " />
+                <div className="relative w-full flex items-center justify-center">
+                  <img src={slide.image} alt={slide.alt} className="w-full h-auto object-cover max-h-[220px] md:max-h-[380px]" />
                 </div>
               </CarouselItem>)}
           </CarouselContent>
